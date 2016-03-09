@@ -1,0 +1,1 @@
+Refering to the paper [Disvoering Gene Networks with a Neural-Genetic Hybrid](http://www.ncbi.nlm.nih.gov/pubmed/17044186)
