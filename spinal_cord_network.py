@@ -1,10 +1,8 @@
 from random import randint, random, sample
-from operator import add
 import numpy as np
 
 def individual(n):
     length = randint(1, n)
-    # length = 5
     return sample(range(1, n+1), length)
 
 def population(count, n):
@@ -41,11 +39,6 @@ def fitness(individual, target, dataset, timepoint):
     from sklearn.metrics import mean_squared_error
     RMSE = mean_squared_error(data_out, y) ** 0.5
     return {'weight':w, 'RMSE':RMSE}
-
-# def grade(pop, target):
-#     'Find average fitness for a population.'
-#     summed = reduce(add, (fitness(x, target) for x in pop))
-#     return summed / (len(pop) * 1.0)
 
 def getKey(item):
     return item[0]['RMSE']
@@ -92,7 +85,8 @@ def ga(target, dataset):
     timepoint = 9
     pop_size = 50
     generations = 1000
-    pop = population(pop_size, 112)
+    threshold = 4
+    pop = population(pop_size, threshold)
 
     # find the best chromosome
     for _ in range(generations):
