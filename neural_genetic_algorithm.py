@@ -43,7 +43,7 @@ def fitness(individual, target, dataset, timepoint):
 def getKey(item):
     return item[0]['RMSE']
 
-def evolve(pop, target, dataset, timepoint=9, retain=0.8, 
+def evolve(pop, target, dataset, timepoint=9, retain=0.2, 
     random_select=0.05, mutate=0.1):
     graded = [ (fitness(x, target, dataset, timepoint), x) for x in pop]
     graded = [ x[1] for x in sorted(graded, key=getKey)]
@@ -91,26 +91,10 @@ def ga(target, dataset):
     # find the best chromosome
     for _ in range(generations):
         pop = evolve(pop, target, dataset, timepoint)
-        print("the %d-th generation" %_)
+        # print("the %d-th generation" %_)
     
     graded = [ (fitness(x, target, dataset, timepoint), x) for x in pop]
     graded = sorted(graded, key=getKey)
     best = graded[0]
 
     return best
-
-
-"""load data set and normalize it"""
-dataset = np.loadtxt('rat_spinal_cord_data.txt')
-for i in range(len(dataset[0])):
-    minv = min(dataset[:, i])
-    maxv = max(dataset[:, i])
-    dataset[:, i] = (dataset[:, i] - minv) / (maxv - minv)
-
-chromosome_set = []
-for i in range(120):
-    # structure of best chromesome:
-    # ({'weight':value, 'RMSE':value}, individual)
-    best_chromosome = ga(i, dataset)
-    chromosome_set.append(best_chromosome)
-    print(best_chromosome[1])
